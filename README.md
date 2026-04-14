@@ -42,7 +42,7 @@ The project follows a structured workflow:
 3. Model training:
    - Logistic Regression (baseline)
    - Random Forest
-   - XGBoost
+   - Extreme Gradient Boosting
 4. Model evaluation:
    - Precision, Recall, F1-score
    - PR AUC and ROC AUC
