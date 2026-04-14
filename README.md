@@ -24,11 +24,11 @@ The goal is not only to classify wines correctly, but to **maximize business val
 
 A cost matrix is defined as follows:
 
-- True Positive: +5  
-- True Negative: +1  
-- False Positive: -10  
-- False Negative: 0  
-
+- True Positive (+5): High-quality wines correctly classified as High quality  
+- True Negative (+1): Low-quality wines correctly classified as Low quality  
+- False Positive (-10): Low-quality wines incorrectly classified as High quality  
+- False Negative (0): High-quality wines incorrectly classified as Low quality
+  
 This setup reflects a scenario where incorrectly labeling a low-quality wine as premium is significantly more costly than missing a high-quality wine.
 
 ---
