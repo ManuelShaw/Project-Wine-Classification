@@ -17,37 +17,67 @@
             color: #FC8D62;
             font-weight: bold;
         }
+        .box {
+            background-color: white;
+            padding: 15px;
+            margin-top: 20px;
+            border-radius: 8px;
+        }
     </style>
 </head>
 <body>
 
 <h1>Wine Quality Classification</h1>
 
+<div class="box">
 <p>
-This project applies machine learning models to classify wine quality using a 
-<span class="highlight">cost-sensitive approach</span>.
+This project applies machine learning models to classify wines as 
+<span class="highlight">High (Premium)</span> or <span class="highlight">Low (Normal)</span> quality.
+</p>
+</div>
+
+<div class="box">
+<h2>Business Problem</h2>
+<p>
+Not all prediction errors have the same impact. Misclassifying a low-quality wine as premium is costly, so the objective is to minimize false positives and maximize profit.
+</p>
+</div>
+
+<div class="box">
+<h2>Key Result</h2>
+<p>
+Random Forest achieved the highest profit by effectively reducing costly false positives.
 </p>
 
-<h2>Key Insight</h2>
-<p>
-Random Forest achieved the highest profit by minimizing costly false positives.
-</p>
-
-<h2>Business Impact</h2>
-<p>
-The model with the best traditional metrics was not the most valuable one. 
-This project shows the importance of aligning model evaluation with business objectives.
-</p>
-
-<h2>Results</h2>
 <ul>
     <li>Logistic Regression: 563</li>
-    <li>Random Forest: <strong>1713</strong></li>
+    <li><strong>Random Forest: 1713</strong></li>
     <li>XGBoost: 1468</li>
 </ul>
+</div>
 
+<div class="box">
+<h2>Profit Comparison</h2>
+<img src="profit_chart.png" width="100%">
+</div>
+
+<div class="box">
+<h2>Conclusion</h2>
+<p>
+The model with the best predictive metrics is not always the most valuable. 
+This project highlights the importance of aligning machine learning decisions with business objectives.
+</p>
+</div>
+
+<div class="box">
 <h2>Repository</h2>
-<a href="https://github.com/TU_USUARIO/TU_REPO">View full project</a>
+<a href="https://github.com/TU_USUARIO/TU_REPO" target="_blank">
+View full project on GitHub
+</a>
+</div>
+
+</body>
+</html>
 
 </body>
 </html>
