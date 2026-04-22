@@ -66,6 +66,13 @@ The project follows a structured workflow:
 
 Random Forest achieved the best overall performance from a business perspective, delivering the highest profit by effectively minimizing costly false positive predictions.
 
+![Profit](images/profit_chart.png)
+
+---
+<p align="center">
+  <img src="https://manuelshaw.github.io/Project-Wine-Classification/images/profit_chart.png" width="600">
+</p>
+---
 <p align="center">
   <img src="images/profit_chart.png" width="600" alt="Profit comparison by model">
 </p>
