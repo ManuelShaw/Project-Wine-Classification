@@ -1,7 +1,3 @@
-PROJECT REPORT
-
-DSFSFD
-AA
-AA
-A
-A
+---
+title: Wine Quality Classification
+---
