@@ -67,12 +67,11 @@ The project follows a structured workflow:
 Random Forest achieved the best overall performance from a business perspective, delivering the highest profit by effectively minimizing costly false positive predictions.
 
 
----
 <p align="center">
-  <img src="https://manuelshaw.github.io/Project-Wine-Classification/images/profit_chart.png" width="600">
+  <img src="images/profit_chart.png" width="600" alt="Profit comparison by model">
 </p>
 
-
+---
 ## Key Insight
 
 The model with the best traditional metrics is not always the most valuable. Aligning model evaluation with business objectives is critical for real-world decision-making.
