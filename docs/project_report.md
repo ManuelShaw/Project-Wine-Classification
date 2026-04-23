@@ -11,7 +11,7 @@ h1:first-of-type {
 
 # Wine Quality Classification with Cost-Sensitive Evaluation
 
-Problem Definition
+## Problem Definition
 
 A growing winery aiming to expand into international markets faces a critical decision challenge: how to reliably identify which wines should be positioned as premium products.
 
@@ -19,8 +19,8 @@ Premium wines represent a significant opportunity for the business. They are sol
 
 However, the company currently lacks access to sommeliers or expert evaluators to assess wine quality before commercialization. This creates a risk in the decision process:
 
-If a high-quality wine is classified as standard, the company misses a potential revenue opportunity.
-If a low-quality wine is classified as premium, the consequences are substantially more severe: customer dissatisfaction, potential returns of entire batches, and reputational damage in new markets.
+- If a high-quality wine is classified as standard, the company misses a potential revenue opportunity.
+- If a low-quality wine is classified as premium, the consequences are substantially more severe: customer dissatisfaction, potential returns of entire batches, and reputational damage in new markets.
 
 To address this, the company relies on historical laboratory data, where wines were evaluated by experts and assigned quality scores based on physicochemical properties such as acidity, pH, and alcohol content.
 
@@ -32,7 +32,7 @@ Additionally, the classification decision is not fixed: it depends on selecting 
 
 This project approaches the problem as a cost-sensitive classification task, where model performance is evaluated based on its contribution to overall profitability rather than purely statistical metrics.
 
-Note: This is a simulated business case designed to reflect real-world decision-making scenarios.
+> **Note:** This is a simulated business case designed to reflect real-world decision-making scenarios.
 
 
 <p align="center">
