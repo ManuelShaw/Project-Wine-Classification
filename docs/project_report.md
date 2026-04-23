@@ -24,15 +24,30 @@ However, the company currently lacks access to sommeliers or expert evaluators t
 
 To address this, the company relies on historical laboratory data, where wines were evaluated by experts and assigned quality scores based on physicochemical properties such as acidity, pH, and alcohol content.
 
-The objective of this project is to build a predictive model that supports this classification decision, not only in terms of accuracy, but in terms of maximizing business value.
+The objective of this project is to develop a predictive model that supports this classification decision in a consistent and scalable way. Unlike traditional classification problems, this scenario requires explicitly accounting for the **asymmetric cost of errors**, where false positives (incorrectly labeling a low-quality wine as premium) are significantly more costly than false negatives.
 
-Unlike traditional classification problems, this scenario requires explicitly incorporating the asymmetric cost of errors. In particular, false positives (incorrectly labeling a low-quality wine as premium) carry a significantly higher cost than false negatives.
+Additionally, the classification decision is not fixed: it depends on selecting an appropriate decision threshold, which directly impacts in the decision whether to prioritize capturing premium opportunities and avoiding costly mistakes. 
 
-Additionally, the classification decision is not fixed: it depends on selecting an appropriate decision threshold, which directly impacts the trade-off between capturing premium opportunities and avoiding costly mistakes.
-
-This project approaches the problem as a cost-sensitive classification task, where model performance is evaluated based on its contribution to overall profitability rather than purely statistical metrics.
+This project therefore approaches the problem as a **cost-sensitive classification task**, where model performance is evaluated not only through statistical metrics, but through its impact on business outcomes.
+.
 
 > **Note:** This is a simulated business case designed to reflect real-world decision-making scenarios.
+
+
+## Business Objective
+
+The goal of this project is not only to classify wines correctly, but to maximize business value by explicitly accounting for the cost of different types of prediction errors.
+
+To reflect real-world decision making, a cost matrix is defined:
+
+True Positive (+5): High-quality wines correctly classified as premium
+True Negative (+1): Low-quality wines correctly classified as standard
+False Positive (-10): Low-quality wines incorrectly classified as premium
+False Negative (0): High-quality wines incorrectly classified as standard
+
+This cost structure reflects that incorrectly labeling a low-quality wine as premium is significantly more damaging than missing a high-quality opportunity.
+
+As a result, the objective is to develop a model that optimizes decision-making, prioritizing the reduction of costly false positives while still capturing valuable premium wines.
 
 
 <p align="center">
