@@ -11,79 +11,31 @@ h1:first-of-type {
 
 # Wine Quality Classification with Cost-Sensitive Evaluation
 
-## Project Overview
+Problem Definition
 
-This project aims to classify wines into two categories based on their quality scores:
+A growing winery aiming to expand into international markets faces a critical decision challenge: how to reliably identify which wines should be positioned as premium products.
 
-- High quality (Premium)
-- Low quality (Normal)
+Premium wines represent a significant opportunity for the business. They are sold at higher prices, packaged differently, and contribute directly to both profitability and brand reputation. In contrast, standard wines are sold with minimal margins and play a more operational role in the product portfolio.
 
-The original dataset contains physicochemical properties of wines (such as acidity, sugar, alcohol, and pH) along with a quality score ranging from 0 to 10.
+However, the company currently lacks access to sommeliers or expert evaluators to assess wine quality before commercialization. This creates a risk in the decision process:
 
-For this project, the target variable was transformed into a binary classification problem:
+If a high-quality wine is classified as standard, the company misses a potential revenue opportunity.
+If a low-quality wine is classified as premium, the consequences are substantially more severe: customer dissatisfaction, potential returns of entire batches, and reputational damage in new markets.
 
-- High quality (1): wines with a score of 7 or higher  
-- Low quality (0): wines with a score of 6 or lower  
+To address this, the company relies on historical laboratory data, where wines were evaluated by experts and assigned quality scores based on physicochemical properties such as acidity, pH, and alcohol content.
 
-This transformation allows the problem to be approached as a decision-making task rather than a regression problem.
+The objective of this project is to build a predictive model that supports this classification decision, not only in terms of accuracy, but in terms of maximizing business value.
 
----
+Unlike traditional classification problems, this scenario requires explicitly incorporating the asymmetric cost of errors. In particular, false positives (incorrectly labeling a low-quality wine as premium) carry a significantly higher cost than false negatives.
 
-## Business Objective
+Additionally, the classification decision is not fixed: it depends on selecting an appropriate decision threshold, which directly impacts the trade-off between capturing premium opportunities and avoiding costly mistakes.
 
-The goal is not only to classify wines correctly, but to **maximize business value** by accounting for the cost of different types of prediction errors.
+This project approaches the problem as a cost-sensitive classification task, where model performance is evaluated based on its contribution to overall profitability rather than purely statistical metrics.
 
-A cost matrix is defined as follows:
-
-- True Positive (+5): High-quality wines correctly classified as High quality  
-- True Negative (+1): Low-quality wines correctly classified as Low quality  
-- False Positive (-10): Low-quality wines incorrectly classified as High quality  
-- False Negative (0): High-quality wines incorrectly classified as Low quality
-  
-This setup reflects a scenario where incorrectly labeling a low-quality wine as premium is significantly more costly than missing a high-quality wine.
-
----
-
-## Approach
-
-The project follows a structured workflow:
-
-1. Exploratory Data Analysis (EDA)
-2. Data cleaning and feature engineering
-3. Model training:
-   - Logistic Regression (baseline)
-   - Random Forest
-   - Extreme Gradient Boosting
-4. Model evaluation:
-   - Precision, Recall, F1-score
-   - PR AUC and ROC AUC
-5. Threshold optimization
-6. Cost-sensitive evaluation using profit
-
----
-
-## Results
-
-Random Forest achieved the best overall performance from a business perspective, delivering the highest profit by effectively minimizing costly false positive predictions.
+Note: This is a simulated business case designed to reflect real-world decision-making scenarios.
 
 
 <p align="center">
   <img src="images/profit_chart.png" width="600" alt="Profit comparison by model">
 </p>
-
----
-## Key Insight
-
-The model with the best traditional metrics is not always the most valuable. Aligning model evaluation with business objectives is critical for real-world decision-making.
-
----
-
-## Technologies
-
-- Python
-- Pandas, NumPy
-- Scikit-learn
-- XGBoost
-- Matplotlib / Seaborn
-
 
