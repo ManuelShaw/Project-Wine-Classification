@@ -12,7 +12,7 @@ h1:first-of-type {
 # Wine Quality Classification with Cost-Sensitive Evaluation
 
 ## Problem Definition
-
+.
 A growing winery aiming to expand into international markets faces a critical decision challenge: how to reliably identify which wines should be positioned as premium products.
 
 Premium wines represent a significant opportunity for the business. They are sold at higher prices, packaged differently, and contribute directly to both profitability and brand reputation. In contrast, standard wines are sold with minimal margins and play a more operational role in the product portfolio.
