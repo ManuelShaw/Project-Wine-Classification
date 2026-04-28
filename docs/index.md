@@ -114,7 +114,7 @@ The dataset used in this project was sourced from an academic institution and co
     <td>Expert rating from 3 to 9 (target variable)</td>
   </tr>
 </table>
-As part of the data preparation process, the original quality score was transformed into a binary classification label — High (score > 6) and Low (score ≤ 6) — to align the problem with the business objective and reflect the winery's decision context.
+
 
 ## Exploratory Data Analysis
 
@@ -143,7 +143,6 @@ The plots reveal clear directional relationships between the variables, but also
 
 Before training the models, several preprocessing steps were applied to improve data quality and ensure the dataset was suitable for modeling.
 
-
 ### Outlier Treatment
 <p align="center">
   <img src="images/boxplot_before.png" width="600">
@@ -162,11 +161,10 @@ Two variables — chlorides and residual sugar — showed highly skewed distribu
 </p>
 While the relationship does not become strictly linear, the transformed feature exhibits a more balanced and stable structure, which is particularly beneficial for models sensitive to feature scale such as Logistic Regression.
 
-
 ### Feature Engineering
 A new feature was created by computing the ratio between alcohol and density. Given the strong relationship between these two variables identified during the EDA, this engineered feature aims to capture their joint effect in a single, more informative variable.
 
-#### Feature Correlation with Target
+### Feature Correlation with Target
 After completing the preprocessing steps, the correlation between each feature and wine quality was recalculated to assess the impact of the transformations and confirm the relevance of the engineered feature.
 <p align="center">
   <img src="images/feature_correlation.png" width="600">
@@ -180,3 +178,149 @@ As a final step before modelling, the original quality score was transformed int
 </p>
 Wines with a score greater than 6 were labeled as High quality (1,006 observations, 21.7%), while the rest were classified as Low quality (3,634 observations, 78.3%). This confirms the class imbalance anticipated during the exploratory analysis, reinforcing the need for cost-sensitive evaluation and threshold optimization in the modeling phase.
 
+## Modeling Approach
+
+The core challenge of this project is not just predicting wine quality correctly, but avoiding a specific type of error: classifying a low-quality wine as premium. This mistake carries the highest business cost — potential returns, customer dissatisfaction, and reputational damage in new markets.
+For this reason, three classification models were evaluated — Logistic Regression, Random Forest, and XGBoost — all optimized around precision, the metric that directly controls the rate of false positives. Hyperparameter tuning was performed using GridSearchCV with Stratified K-Fold cross-validation, and the classification threshold was adjusted for each model to further reduce costly misclassifications.
+
+### Logistic Regression
+Logistic Regression was used as the baseline model. Its primary role is to establish a reference point — a minimum performance bar that more complex models should comfortably exceed.
+While the model shows reasonable ability to separate both classes (ROC AUC: 0.8123), its precision on the test set reached only 0.5651, meaning that nearly 1 in 2 wines predicted as premium were actually standard. With 117 false positives, this level of error would translate directly into costly misclassifications under the defined cost structure.
+<p align="center">
+  <img src="images/roc_lr.png" width="600">
+</p>
+
+### Random Forest
+Random Forest introduced a significant improvement over the baseline. As an ensemble model capable of capturing non-linear relationships between variables, it proved particularly well-suited for this problem, where wine quality is influenced by multiple interacting physicochemical properties.
+The results on the test set reflect this strength: with a precision of 0.9050, only 17 wines were incorrectly classified as premium out of all positive predictions. This represents a dramatic reduction in false positives compared to Logistic Regression, directly translating into lower business risk and higher profit under the defined cost structure.
+<p align="center">
+  <img src="images/roc_rf.png" width="600">
+</p>
+
+### XGBoost
+XGBoost was evaluated as a boosting-based alternative to determine whether it could further improve upon Random Forest. While it delivers strong overall performance and actually identifies more true premium wines than Random Forest (172 vs 162), this comes at a cost: 42 false positives compared to just 17.
+In a standard classification problem, identifying more true positives would be a clear advantage. However, in this business context, where a single false positive carries twice the penalty of a true positive reward, the additional misclassifications reduce its overall value significantly.
+<p align="center">
+  <img src="images/roc_xgb.png" width="600">
+</p>
+
+### Model Comparison
+With all three models evaluated, the results can be compared directly. The ROC curve below illustrates the overall discrimination ability of each model across all possible thresholds.
+<p align="center">
+  <img src="images/roc_compare.png" width="600">
+</p>
+The gap between Logistic Regression and the two ensemble models is clear. Random Forest and XGBoost both achieve substantially stronger separation between classes, confirming that the added complexity of ensemble methods is justified in this context.
+<table>
+  <tr>
+    <th>Model</th>
+    <th>Precision</th>
+    <th>Recall</th>
+    <th>F1-Score</th>
+    <th>PR AUC</th>
+    <th>ROC AUC</th>
+  </tr>
+  <tr>
+    <td>Logistic Regression</td>
+    <td>0.5651</td>
+    <td>0.5033</td>
+    <td>0.5324</td>
+    <td>0.5528</td>
+    <td>0.8123</td>
+  </tr>
+  <tr>
+    <td>Random Forest</td>
+    <td><strong>0.9050</strong></td>
+    <td>0.5364</td>
+    <td><strong>0.6736</strong></td>
+    <td><strong>0.8287</strong></td>
+    <td><strong>0.9312</strong></td>
+  </tr>
+  <tr>
+    <td>XGBoost</td>
+    <td>0.8037</td>
+    <td><strong>0.5695</strong></td>
+    <td>0.6667</td>
+    <td>0.7916</td>
+    <td>0.9185</td>
+  </tr>
+</table>
+
+Random Forest leads in precision and both AUC metrics, making it the strongest candidate from a predictive standpoint. XGBoost trades some precision for higher recall — a reasonable choice in other contexts, but not in this one given the asymmetric cost structure.
+
+## Cost-Sensitive Evaluation
+Predictive metrics alone do not tell the full story. The real question is: what is the business impact of each model's errors?
+To answer this, a cost matrix was applied to translate prediction outcomes into business value:
+<table>
+  <tr>
+    <th>Outcome</th>
+    <th>Business Meaning</th>
+    <th>Value</th>
+  </tr>
+  <tr>
+    <td>True Positive</td>
+    <td>High-quality wine correctly classified as premium</td>
+    <td>+5</td>
+  </tr>
+  <tr>
+    <td>True Negative</td>
+    <td>Low-quality wine correctly classified as standard</td>
+    <td>+1</td>
+  </tr>
+  <tr>
+    <td>False Positive</td>
+    <td>Low-quality wine incorrectly classified as premium</td>
+    <td>-10</td>
+  </tr>
+  <tr>
+    <td>False Negative</td>
+    <td>High-quality wine missed</td>
+    <td>0</td>
+  </tr>
+</table>
+Applying this structure to each model's results:
+<table>
+  <tr>
+    <th>Model</th>
+    <th>TN</th>
+    <th>FP</th>
+    <th>FN</th>
+    <th>TP</th>
+    <th>Profit</th>
+  </tr>
+  <tr>
+    <td>Logistic Regression</td>
+    <td>973</td>
+    <td>117</td>
+    <td>150</td>
+    <td>152</td>
+    <td>563</td>
+  </tr>
+  <tr>
+    <td>Random Forest</td>
+    <td>1073</td>
+    <td>17</td>
+    <td>140</td>
+    <td>162</td>
+    <td><strong>1713</strong></td>
+  </tr>
+  <tr>
+    <td>XGBoost</td>
+    <td>1048</td>
+    <td>42</td>
+    <td>130</td>
+    <td>172</td>
+    <td>1488</td>
+  </tr>
+</table>
+
+<p align="center">
+  <img src="images/profit_chart.png" width="600">
+</p>
+
+The numbers tell a clear story. Logistic Regression's 117 false positives alone generate a penalty of -1,170, severely limiting its business value despite identifying a reasonable number of true premium wines. XGBoost finds more premium wines than Random Forest, but its 42 false positives cost -420, eroding much of that advantage. Random Forest, with only 17 false positives, keeps that penalty to just -170 — making it the most profitable model by a significant margin.
+
+
+## Conclusion
+This project set out to solve a real business problem: helping a winery reliably identify premium wines without relying on expert evaluators, while explicitly accounting for the cost of getting it wrong.
+The results show that not all correct predictions are equal. XGBoost identified more premium wines than Random Forest, but its higher rate of false positives — incorrectly labeling standard wines as premium — made it a more costly choice for the business. Random Forest, by keeping false positives to a minimum, delivered the highest profit of the three models evaluated (1,713 vs 1,488 for XGBoost and 563 for Logistic Regression).
+This outcome reinforces a key principle in applied machine learning: the best model is not always the one with the highest accuracy or the most positive predictions. In contexts where errors carry asymmetric costs, aligning model evaluation with business objectives is what ultimately determines real-world value.
