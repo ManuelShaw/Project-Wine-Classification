@@ -210,6 +210,7 @@ With all three models evaluated, the results can be compared directly. The ROC c
   <img src="images/roc_compare.png" width="600">
 </p>
 The gap between Logistic Regression and the two ensemble models is clear. Random Forest and XGBoost both achieve substantially stronger separation between classes, confirming that the added complexity of ensemble methods is justified in this context.
+
 <table>
   <tr>
     <th>Model</th>
