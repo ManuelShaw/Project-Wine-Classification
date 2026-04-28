@@ -139,7 +139,42 @@ As part of the exploratory analysis, pairwise relationships between all variable
 </p>
 The plots reveal clear directional relationships between the variables, but also expose a small number of extreme observations positioned far from the main data cluster — particularly visible in the Density vs Residual Sugar plot. These findings motivated the outlier treatment applied in the following data preparation phase.
 
+## Data Preparation
+
+Before training the models, several preprocessing steps were applied to improve data quality and ensure the dataset was suitable for modeling.
+
+### Outlier Treatment
 <p align="center">
-  <img src="images/profit_chart.png" width="600">
+  <img src="images/boxplot_before.png" width="600">
 </p>
+Outliers were identified through boxplot analysis and confirmed visually using the scatterplots discussed in the previous section. Rather than applying aggressive transformations such as clipping, a targeted filtering approach was chosen: upper thresholds were defined for five variables — fixed.acidity, citric.acid, residual.sugar, free.sulfur.dioxide, and density — removing only the most extreme observations while preserving the overall data structure.
+
+The impact of this treatment is visible in the plot below, where the extreme values are now eliminated.
+<p align="center">
+  <img src="images/boxplot_after.png" width="600">
+</p>
+
+### Feature Transformation
+Two variables — chlorides and residual sugar — showed highly skewed distributions with long right tails. A logarithmic transformation was applied to both in order to reduce skewness and stabilize variance. The effect of this transformation is illustrated below using residual sugar as an example.
+<p align="center">
+  <img src="images/log_transformation.png" width="600">
+</p>
+While the relationship does not become strictly linear, the transformed feature exhibits a more balanced and stable structure, which is particularly beneficial for models sensitive to feature scale such as Logistic Regression.
+
+### Feature Engineering
+A new feature was created by computing the ratio between alcohol and density. Given the strong relationship between these two variables identified during the EDA, this engineered feature aims to capture their joint effect in a single, more informative variable.
+
+### Feature Correlation with Target
+After completing the preprocessing steps, the correlation between each feature and wine quality was recalculated to assess the impact of the transformations and confirm the relevance of the engineered feature.
+<p align="center">
+  <img src="images/feature_correlation.png" width="600">
+</p>
+Alcohol and the engineered alcohol.density.ratio show the strongest positive correlations with quality (0.44 and 0.43 respectively), confirming that the new feature captures information almost as effectively as alcohol alone. On the negative side, density, chlorides, and volatile.acidity present the strongest inverse relationships with quality.
+
+### Target Variable Definition
+As a final step before modelling, the original quality score was transformed into a binary classification label to align the problem with the business objective.
+<p align="center">
+  <img src="images/target_variable_dist.png" width="600">
+</p>
+Wines with a score greater than 6 were labeled as High quality (1,006 observations, 21.7%), while the rest were classified as Low quality (3,634 observations, 78.3%). This confirms the class imbalance anticipated during the exploratory analysis, reinforcing the need for cost-sensitive evaluation and threshold optimization in the modeling phase.
 
