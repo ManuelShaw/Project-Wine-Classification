@@ -40,10 +40,33 @@ The goal of this project is not only to classify wines correctly, but to maximiz
 
 To reflect real-world decision making, a cost matrix is defined:
 
-True Positive (+5): High-quality wines correctly classified as premium
-True Negative (+1): Low-quality wines correctly classified as standard
-False Positive (-10): Low-quality wines incorrectly classified as premium
-False Negative (0): High-quality wines incorrectly classified as standard
+<table>
+  <tr>
+    <th>Outcome</th>
+    <th>Description</th>
+    <th>Value</th>
+  </tr>
+  <tr>
+    <td>True Positive</td>
+    <td>High-quality wines correctly classified as premium</td>
+    <td>+5</td>
+  </tr>
+  <tr>
+    <td>True Negative</td>
+    <td>Low-quality wines correctly classified as standard</td>
+    <td>+1</td>
+  </tr>
+  <tr>
+    <td>False Positive</td>
+    <td>Low-quality wines incorrectly classified as premium</td>
+    <td>-10</td>
+  </tr>
+  <tr>
+    <td>False Negative</td>
+    <td>High-quality wines incorrectly classified as standard</td>
+    <td>0</td>
+  </tr>
+</table>
 
 This cost structure reflects that incorrectly labeling a low-quality wine as premium is significantly more damaging than missing a high-quality opportunity.
 
@@ -149,7 +172,7 @@ Before training the models, several preprocessing steps were applied to improve 
 </p>
 Outliers were identified through boxplot analysis and confirmed visually using the scatterplots discussed in the previous section. Rather than applying aggressive transformations such as clipping, a targeted filtering approach was chosen: upper thresholds were defined for five variables — fixed.acidity, citric.acid, residual.sugar, free.sulfur.dioxide, and density — removing only the most extreme observations while preserving the overall data structure.
 
-The impact of this treatment is visible in the plot below, where the extreme values are now eliminated.
+The impact of this treatment is visible in the plot below, where the most extreme values are significantly reduced while the overall structure of each variable is preserved.
 <p align="center">
   <img src="images/boxplot_after.png" width="600">
 </p>
