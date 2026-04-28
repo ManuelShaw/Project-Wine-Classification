@@ -49,6 +49,18 @@ This cost structure reflects that incorrectly labeling a low-quality wine as pre
 
 As a result, the objective is to develop a model that optimizes decision-making, prioritizing the reduction of costly false positives while still capturing valuable premium wines.
 
+## Dataset Overview
+
+The dataset used in this project was sourced from an academic institution and contains physicochemical measurements of wine samples, each evaluated and assigned a quality score by expert tasters.
+<table>
+  <tr><th>Property</th><th>Value</th></tr>
+  <tr><td>Observations</td><td>~6,500</td></tr>
+  <tr><td>Features</td><td>11 physicochemical variables</td></tr>
+  <tr><td>Target variable</td><td>Quality score (3–9)</td></tr>
+  <tr><td>Source</td><td>Academic dataset</td></tr>
+</table>
+As part of the data preparation process, the original quality score was transformed into a binary classification label — High (score > 6) and Low (score ≤ 6) — to align the problem with the business objective and reflect the winery's decision context.
+
 
 <p align="center">
   <img src="images/profit_chart.png" width="600" alt="Profit comparison by model">
