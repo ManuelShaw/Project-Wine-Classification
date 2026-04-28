@@ -120,17 +120,23 @@ As part of the data preparation process, the original quality score was transfor
 
 ### Target Variable Distribution
 The quality scores are heavily concentrated around values 5 and 6, which together account for the vast majority of observations. Scores at the extremes — 3, 4, 8, and 9 — are significantly underrepresented, reflecting the natural difficulty of producing wines at the quality boundaries.
-[insertar Wine Quality Distribution chart]
+<p align="center">
+  <img src="images/quality_dist" width="600" alt="Profit comparison by model">
+</p>
 This concentration has a direct implication for the modeling phase: once the target is transformed into a binary label, the resulting class distribution is notably imbalanced, with Low quality wines representing approximately 78% of the dataset. Standard accuracy metrics are therefore insufficient to evaluate model performance in this context.
 
 ### Feature Correlations
-[insertar Correlation Heatmap]
+<p align="center">
+  <img src="images/correlation_heatmap.png" width="600" alt="Profit comparison by model">
+</p>
 The heatmap reveals several relevant relationships. Alcohol shows the strongest positive correlation with quality (0.43), suggesting that higher alcohol content tends to be associated with better-rated wines. On the other hand, density presents a notable negative correlation (-0.31), which is partly explained by its strong inverse relationship with alcohol (-0.78).
 Two pairs of variables also show signs of multicollinearity worth noting: residual sugar and density (0.84), and free sulfur dioxide and total sulfur dioxide (0.62). This was taken into account during the modeling phase, particularly for Logistic Regression, which is sensitive to correlated features.
 
 ### Key Variable Relationships
 As part of the exploratory analysis, pairwise relationships between all variables were examined. The following plots focus on two relationships that stood out due to their strong correlation and the presence of extreme observations.
-[insertar scatterplot BEFORE]
+<p align="center">
+  <img src="images/scatterplots_1.png" width="600" alt="Profit comparison by model">
+</p>
 The plots reveal clear directional relationships between the variables, but also expose a small number of extreme observations positioned far from the main data cluster — particularly visible in the Density vs Residual Sugar plot. These findings motivated the outlier treatment applied in the following data preparation phase.
 
 <p align="center">
