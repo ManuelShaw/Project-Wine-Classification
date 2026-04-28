@@ -143,6 +143,7 @@ The plots reveal clear directional relationships between the variables, but also
 
 Before training the models, several preprocessing steps were applied to improve data quality and ensure the dataset was suitable for modeling.
 
+
 ### Outlier Treatment
 <p align="center">
   <img src="images/boxplot_before.png" width="600">
@@ -161,10 +162,11 @@ Two variables — chlorides and residual sugar — showed highly skewed distribu
 </p>
 While the relationship does not become strictly linear, the transformed feature exhibits a more balanced and stable structure, which is particularly beneficial for models sensitive to feature scale such as Logistic Regression.
 
+
 ### Feature Engineering
 A new feature was created by computing the ratio between alcohol and density. Given the strong relationship between these two variables identified during the EDA, this engineered feature aims to capture their joint effect in a single, more informative variable.
 
-### Feature Correlation with Target
+#### Feature Correlation with Target
 After completing the preprocessing steps, the correlation between each feature and wine quality was recalculated to assess the impact of the transformations and confirm the relevance of the engineered feature.
 <p align="center">
   <img src="images/feature_correlation.png" width="600">
