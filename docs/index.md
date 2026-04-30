@@ -12,7 +12,7 @@ h1:first-of-type {
 # Wine Quality Classification with Cost-Sensitive Evaluation
 
 ## Problem Definition
-.
+
 A growing winery aiming to expand into international markets faces a critical decision challenge: how to reliably identify which wines should be positioned as premium products.
 
 Premium wines represent a significant opportunity for the business. They are sold at higher prices, packaged differently, and contribute directly to both profitability and brand reputation. In contrast, standard wines are sold with minimal margins and play a more operational role in the product portfolio.
@@ -218,7 +218,7 @@ Random Forest introduced a significant improvement over the baseline. As an ense
 <p align="center">
   <img src="images/roc_rf.png" width="600">
 </p>
-The profit vs threshold curve below identifies the classification threshold that maximizes business value. The optimal threshold of 0.55 yields a profit of 1,714 — confirming that a more conservative threshold significantly outperforms the default of 0.5 in this cost-sensitive context.
+The profit vs threshold curve below identifies the classification threshold that maximizes business value.
 <p align="center">
   <img src="images/rf_profit_thresh.png" width="600">
 </p>
@@ -233,6 +233,7 @@ Applying the same optimization approach, XGBoost reaches its peak profit of 1,58
 <p align="center">
   <img src="images/xgb_profit_thresh.png" width="600">
 </p>
+At the optimal threshold of 0.73, XGBoost generates 51 false positives which are significantly more than Random Forest's 17, which directly impacts its overall business value.
 
 ### Model Comparison
 
@@ -241,7 +242,6 @@ With all three models evaluated, the results can be compared directly. The ROC c
   <img src="images/roc_compare.png" width="600">
 </p>
 The gap between Logistic Regression and the two ensemble models is clear. Random Forest and XGBoost both achieve substantially stronger separation between classes, confirming that the added complexity of ensemble methods is justified in this context.
-n/
 
 <table>
   <tr>
@@ -262,17 +262,17 @@ n/
   </tr>
   <tr>
     <td>Random Forest</td>
-    <td><strong>0.9050</strong></td>
-    <td>0.5364</td>
-    <td><strong>0.6736</strong></td>
+    <td><strong>0.9091</strong></td>
+    <td><strong>0.5298</strong></td>
+    <td><strong>0.6695</strong></td>
     <td><strong>0.8287</strong></td>
     <td><strong>0.9312</strong></td>
   </tr>
   <tr>
     <td>XGBoost</td>
-    <td>0.8037</td>
-    <td><strong>0.5695</strong></td>
-    <td>0.6667</td>
+    <td>0.8735</td>
+    <td>0.4801</td>
+    <td>0.6197</td>
     <td>0.7916</td>
     <td>0.9185</td>
   </tr>
@@ -330,18 +330,18 @@ Applying this structure to each model's results:
   </tr>
   <tr>
     <td>Random Forest</td>
-    <td>1073</td>
-    <td>17</td>
+    <td>1074</td>
+    <td>16</td>
     <td>140</td>
     <td>162</td>
     <td><strong>1714</strong></td>
   </tr>
   <tr>
     <td>XGBoost</td>
-    <td>1048</td>
-    <td>42</td>
-    <td>130</td>
-    <td>172</td>
+    <td>1069</td>
+    <td>21</td>
+    <td>157</td>
+    <td>145</td>
     <td>1584</td>
   </tr>
 </table>
@@ -350,10 +350,10 @@ Applying this structure to each model's results:
   <img src="images/profit_chart.png" width="600">
 </p>
 
-The numbers tell a clear story. Logistic Regression's 117 false positives alone generate a penalty of -1,170, severely limiting its business value despite identifying a reasonable number of true premium wines. XGBoost finds more premium wines than Random Forest, but its 42 false positives cost -420, eroding much of that advantage. Random Forest, with only 17 false positives, keeps that penalty to just -170 — making it the most profitable model by a significant margin.
+The numbers tell a clear story. Logistic Regression's 117 false positives alone generate a penalty of -1,170, severely limiting its business value despite identifying a reasonable number of true premium wines. XGBoost finds more premium wines than Random Forest, but its 21 false positives cost -210, eroding much of that advantage. Random Forest, with only 16 false positives, keeps that penalty to just -160 — making it the most profitable model by a significant margin.
 
 
 ## Conclusion
 This project set out to solve a real business problem: helping a winery reliably identify premium wines without relying on expert evaluators, while explicitly accounting for the cost of getting it wrong.
-The results show that not all correct predictions are equal. XGBoost identified more premium wines than Random Forest, but its higher rate of false positives — incorrectly labeling standard wines as premium — made it a more costly choice for the business. Random Forest, by keeping false positives to a minimum, delivered the highest profit of the three models evaluated (1,713 vs 1,488 for XGBoost and 563 for Logistic Regression).
-This outcome reinforces a key principle in applied machine learning: the best model is not always the one with the highest accuracy or the most positive predictions. In contexts where errors carry asymmetric costs, aligning model evaluation with business objectives is what ultimately determines real-world value.
+The results show a clear winner across all dimensions. Random Forest not only keeps false positives to a minimum (with only 16 compared to 21 for XGBoost and 117 for Logistic Regression) but also identifies more true premium wines than XGBoost (162 vs 145), delivering the highest profit of the three models evaluated (1,714 vs 1,584 for XGBoost and 563 for Logistic Regression).
+This outcome reinforces a key principle in applied machine learning: selecting a model based solely on predictive metrics is not sufficient. In this project, threshold optimization played a decisive role — XGBoost required a threshold of 0.73 to control false positives, while Random Forest achieved its best results at a considerably lower value of 0.55, reflecting its stronger natural ability to separate both classes. In contexts where errors carry asymmetric costs, aligning both model selection and threshold decisions with business objectives is what ultimately determines real-world value.
