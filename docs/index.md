@@ -219,12 +219,20 @@ The results on the test set reflect this strength: with a precision of 0.9050, o
 <p align="center">
   <img src="images/roc_rf.png" width="600">
 </p>
+The profit vs threshold curve below identifies the classification threshold that maximizes business value. The optimal threshold of 0.55 yields a profit of 1,714 — confirming that a more conservative threshold significantly outperforms the default of 0.5 in this cost-sensitive context.
+<p align="center">
+  <img src="images/rf_profit_thresh.png" width="600">
+</p>
 
 ### XGBoost
 XGBoost was evaluated as a boosting-based alternative to determine whether it could further improve upon Random Forest. While it delivers strong overall performance and actually identifies more true premium wines than Random Forest (172 vs 162), this comes at a cost: 42 false positives compared to just 17.
 In a standard classification problem, identifying more true positives would be a clear advantage. However, in this business context, where a single false positive carries twice the penalty of a true positive reward, the additional misclassifications reduce its overall value significantly.
 <p align="center">
   <img src="images/roc_xgb.png" width="600">
+</p>
+Applying the same optimization approach, XGBoost reaches its peak profit of 1,584 at a threshold of 0.73 — considerably higher than the default, reflecting the model's need for a much more conservative decision boundary to control false positives effectively.
+<p align="center">
+  <img src="images/xgb_profit_thresh.png" width="600">
 </p>
 
 ### Model Comparison
