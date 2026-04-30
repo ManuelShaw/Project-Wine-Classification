@@ -233,7 +233,6 @@ Applying the same optimization approach, XGBoost reaches its peak profit of 1,58
 <p align="center">
   <img src="images/xgb_profit_thresh.png" width="600">
 </p>
-Despite reaching a peak profit of 1,584 at threshold 0.73, this remains below Random Forest's 1,714 — making XGBoost a competitive but ultimately less cost-efficient choice for this business problem.
 
 ### Model Comparison
 
