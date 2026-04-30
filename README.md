@@ -15,8 +15,10 @@ Covers the full exploratory and preparation phase. This includes an analysis of 
 Covers the full modeling and evaluation phase. Three classification models are trained and evaluated — Logistic Regression, Random Forest, and XGBoost — all optimized around precision using GridSearchCV with Stratified K-Fold cross-validation. Each model is first assessed at the default threshold and then systematically optimized using a profit vs threshold framework derived from a predefined cost matrix. Final model selection is based on business profit rather than predictive metrics alone. The notebook also includes feature importance analysis for the selected model.
 
 ### Data
-#### wine_quality.csv — Original dataset sourced from an academic institution, containing physicochemical measurements of wine samples with quality scores assigned by expert tasters.
-#### wine_clean_data.csv — Processed version of the dataset, output of 01_eda_processing.ipynb, ready for modeling.
+#### wine_quality.csv 
+Original dataset sourced from an academic institution, containing physicochemical measurements of wine samples with quality scores assigned by expert tasters.
+#### wine_clean_data.csv
+Processed version of the dataset, output of 01_eda_processing.ipynb, ready for modeling.
 
 ### Tools & Libraries
 Python · Pandas · NumPy · Scikit-learn · XGBoost · Matplotlib · Seaborn
