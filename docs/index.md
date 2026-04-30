@@ -11,6 +11,13 @@ h1:first-of-type {
 
 # Wine Quality Classification with Cost-Sensitive Evaluation
 
+## Executive Summary
+
+This project addresses a real business challenge faced by a growing winery: how to reliably classify wines as premium or standard without access to expert evaluators, while explicitly accounting for the unequal cost of prediction errors.
+The problem was approached as a cost-sensitive classification task, where incorrectly labeling a standard wine as premium carries a significantly higher business penalty than missing a premium opportunity. Three models were evaluated — Logistic Regression, Random Forest, and XGBoost — all optimized around precision to minimize costly false positives. Beyond standard metric optimization, the classification threshold of each model was systematically tuned using a profit-based framework derived from a predefined cost matrix.
+Random Forest emerged as the best-performing model across all dimensions. At an optimized threshold of 0.55, it achieved a precision of 0.9091, generated only 16 false positives, and delivered a total profit of 1,714 — outperforming XGBoost (1,584) and Logistic Regression (563). Notably, Random Forest also identified more true premium wines than XGBoost, making it the superior choice both in terms of predictive quality and business impact.
+The project demonstrates that in cost-sensitive scenarios, model selection and threshold optimization must be driven by business objectives rather than statistical metrics alone. The engineered feature alcohol.density.ratio, which ranked as the most important variable in the final model, further illustrates how domain-informed feature engineering can meaningfully contribute to model performance.
+
 ## Problem Definition
 
 A growing winery aiming to expand into international markets faces a critical decision challenge: how to reliably identify which wines should be positioned as premium products.
