@@ -18,8 +18,5 @@ Covers the full modeling and evaluation phase. Three classification models are t
 #### wine_quality.csv — Original dataset sourced from an academic institution, containing physicochemical measurements of wine samples with quality scores assigned by expert tasters.
 #### wine_clean_data.csv — Processed version of the dataset, output of 01_eda_processing.ipynb, ready for modeling.
 
-### Report
-The full project report, including all visualizations, methodology details, and business conclusions, is available here.
-
 ### Tools & Libraries
 Python · Pandas · NumPy · Scikit-learn · XGBoost · Matplotlib · Seaborn
