@@ -214,8 +214,7 @@ While the model shows reasonable ability to separate both classes (ROC AUC: 0.81
 </p>
 
 ### Random Forest
-Random Forest introduced a significant improvement over the baseline. As an ensemble model capable of capturing non-linear relationships between variables, it proved particularly well-suited for this problem, where wine quality is influenced by multiple interacting physicochemical properties.
-The results on the test set reflect this strength: with a precision of 0.9050, only 17 wines were incorrectly classified as premium out of all positive predictions. This represents a dramatic reduction in false positives compared to Logistic Regression, directly translating into lower business risk and higher profit under the defined cost structure.
+Random Forest introduced a significant improvement over the baseline. As an ensemble model capable of capturing non-linear relationships between variables, it proved particularly well-suited for this problem, where wine quality is influenced by multiple interacting physicochemical properties. With a precision of 0.8406 at the default threshold, the model already makes considerably more reliable positive predictions than Logistic Regression, directly translating into lower business risk.
 <p align="center">
   <img src="images/roc_rf.png" width="600">
 </p>
@@ -223,10 +222,10 @@ The profit vs threshold curve below identifies the classification threshold that
 <p align="center">
   <img src="images/rf_profit_thresh.png" width="600">
 </p>
+The optimal threshold of 0.55 yields a profit of 1,714 and reduces false positives to just 16 — confirming that threshold optimization adds meaningful business value even on top of an already strong model. This sets the stage for the cost-sensitive evaluation that follows.
 
 ### XGBoost
-XGBoost was evaluated as a boosting-based alternative to determine whether it could further improve upon Random Forest. While it delivers strong overall performance and actually identifies more true premium wines than Random Forest (172 vs 162), this comes at a cost: 42 false positives compared to just 17.
-In a standard classification problem, identifying more true positives would be a clear advantage. However, in this business context, where a single false positive carries twice the penalty of a true positive reward, the additional misclassifications reduce its overall value significantly.
+XGBoost was evaluated as a boosting-based alternative to determine whether it could further improve upon Random Forest. While it delivers strong overall performance with a precision of 0.7839 at the default threshold, the model requires a considerably more conservative decision boundary to control false positives effectively in this cost-sensitive context.
 <p align="center">
   <img src="images/roc_xgb.png" width="600">
 </p>
@@ -234,6 +233,7 @@ Applying the same optimization approach, XGBoost reaches its peak profit of 1,58
 <p align="center">
   <img src="images/xgb_profit_thresh.png" width="600">
 </p>
+Despite reaching a peak profit of 1,584 at threshold 0.73, this remains below Random Forest's 1,714 — making XGBoost a competitive but ultimately less cost-efficient choice for this business problem.
 
 ### Model Comparison
 
@@ -335,7 +335,7 @@ Applying this structure to each model's results:
     <td>17</td>
     <td>140</td>
     <td>162</td>
-    <td><strong>1713</strong></td>
+    <td><strong>1714</strong></td>
   </tr>
   <tr>
     <td>XGBoost</td>
@@ -343,7 +343,7 @@ Applying this structure to each model's results:
     <td>42</td>
     <td>130</td>
     <td>172</td>
-    <td>1488</td>
+    <td>1584</td>
   </tr>
 </table>
 
