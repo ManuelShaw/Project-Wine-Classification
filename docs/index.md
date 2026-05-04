@@ -11,7 +11,7 @@ h1:first-of-type {
 
 # Wine Quality Classification with Cost-Sensitive Evaluation
 <p align="center">
-  <img src="images/report_front.png" width="800">
+  <img src="images/report_front.jpg" width="800">
 </p>
 ## Executive Summary
 
