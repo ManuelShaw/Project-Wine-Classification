@@ -10,7 +10,9 @@ h1:first-of-type {
 
 
 # Wine Quality Classification with Cost-Sensitive Evaluation
-
+<p align="center">
+  <img src="images/report_front.png" width="800">
+</p>
 ## Executive Summary
 
 This project addresses a real business challenge faced by a growing winery: how to reliably classify wines as premium or standard without access to expert evaluators, while explicitly accounting for the unequal cost of prediction errors.
